@@ -1,3 +1,6 @@
+#   Copyright (c) Code Written and Tested by Ahmed Emad in 29/02/2020, 15:59
+#
+
 import os
 import uuid
 
@@ -32,8 +35,13 @@ class UserProfileModel(models.Model):
 class TodoGroupModel(models.Model):
     """The Model of the Todo Categories."""
 
+    sort = models.PositiveIntegerField()
     user = models.ForeignKey(UserProfileModel, on_delete=models.CASCADE, related_name='todo_groups')
     title = models.CharField(max_length=255)
+
+    class Meta:
+        ordering = ['sort']
+        unique_together = ("user", "sort")
 
     def __str__(self):
         return self.title
@@ -47,10 +55,15 @@ class TodoModel(models.Model):
         ('U', 'Unchecked')
     )
 
+    sort = models.PositiveIntegerField()
     category = models.OneToOneField(TodoGroupModel, on_delete=models.CASCADE, related_name='todos')
     title = models.CharField(max_length=255)
     description = models.TextField()
     status = models.CharField(max_length=1, choices=todo_statuses, default='U')  # whether it's done or not
+
+    class Meta:
+        unique_together = ("category", "sort")
+        ordering = ['sort']
 
     def __str__(self):
         return self.title
@@ -60,5 +73,10 @@ class TodoAttachmentModel(models.Model):
     """an alias to filefield to enable
     having multiple file attachments in a todo items"""
 
+    sort = models.PositiveIntegerField()
     todo_item = models.ForeignKey(TodoModel, on_delete=models.CASCADE, related_name='attachments')
     file = models.FileField(upload_to=upload)
+
+    class Meta:
+        unique_together = ("todo_item", "sort")
+        ordering = ['sort']
