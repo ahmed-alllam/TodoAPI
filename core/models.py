@@ -1,4 +1,5 @@
-#   Copyright (c) Code Written and Tested by Ahmed Emad in 29/02/2020, 15:59
+#   Copyright (c) Code Written and Tested by Ahmed Emad in 29/02/2020, 19:25
+#
 #
 
 import os
@@ -26,7 +27,7 @@ class UserProfileModel(models.Model):
     """The Model of the User Profile."""
 
     account = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    profile_photo = models.ImageField(upload_to=upload)
+    profile_photo = models.ImageField(upload_to=upload, null=True)
 
     def __str__(self):
         return self.account.username
@@ -35,7 +36,7 @@ class UserProfileModel(models.Model):
 class TodoGroupModel(models.Model):
     """The Model of the Todo Categories."""
 
-    sort = models.PositiveIntegerField()
+    sort = models.PositiveIntegerField(null=True)
     user = models.ForeignKey(UserProfileModel, on_delete=models.CASCADE, related_name='todo_groups')
     title = models.CharField(max_length=255)
 
@@ -55,7 +56,7 @@ class TodoModel(models.Model):
         ('U', 'Unchecked')
     )
 
-    sort = models.PositiveIntegerField()
+    sort = models.PositiveIntegerField(null=True)
     category = models.OneToOneField(TodoGroupModel, on_delete=models.CASCADE, related_name='todos')
     title = models.CharField(max_length=255)
     description = models.TextField()
@@ -73,7 +74,7 @@ class TodoAttachmentModel(models.Model):
     """an alias to filefield to enable
     having multiple file attachments in a todo items"""
 
-    sort = models.PositiveIntegerField()
+    sort = models.PositiveIntegerField(null=True)
     todo_item = models.ForeignKey(TodoModel, on_delete=models.CASCADE, related_name='attachments')
     file = models.FileField(upload_to=upload)
 
