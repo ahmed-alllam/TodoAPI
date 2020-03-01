@@ -1,4 +1,5 @@
-#   Copyright (c) Code Written and Tested by Ahmed Emad in 01/03/2020, 18:38
+#   Copyright (c) Code Written and Tested by Ahmed Emad in 01/03/2020, 19:25
+#
 #
 #
 
@@ -17,8 +18,8 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('first_name', 'last_name', 'username', 'password')
         extra_kwargs = {
-            'first_name': {'blank': False},
-            'last_name': {'blank': False},
+            'first_name': {'allow_blank': False, 'required': True},
+            'last_name': {'allow_blank': False, 'required': True},
             'password': {'write_only': True},
         }
 
@@ -86,7 +87,7 @@ class TodoAttachmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TodoAttachmentModel
-        fields = ('file', 'sort')
+        fields = ('sort', 'file')
         extra_kwargs = {
             'sort': {'read_only': True}
         }
@@ -100,6 +101,9 @@ class TodoItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = TodoModel
         fields = ('sort', 'title', 'status', 'description', 'attachments')
+        extra_kwargs = {
+            'sort': {'required': False}
+        }
 
     def validate_sort(self, sort):
         """validator for sort field"""
@@ -152,6 +156,9 @@ class TodoGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = TodoGroupModel
         fields = ('sort', 'title', 'todos')
+        extra_kwargs = {
+            'sort': {'required': False}
+        }
 
     def validate_sort(self, sort):
         """validator for sort field"""

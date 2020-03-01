@@ -1,6 +1,8 @@
-#   Copyright (c) Code Written and Tested by Ahmed Emad in 01/03/2020, 18:38
+#   Copyright (c) Code Written and Tested by Ahmed Emad in 01/03/2020, 19:25
 #
-
+#
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
@@ -33,4 +35,5 @@ urlpatterns = [
                            'delete': 'destroy'}), name='todo'),
     path('users/<username>/todo-groups/<int:group_sort>/todo-items/<int:item_sort>/attachments/',
          include(todo_attachment_router.urls)),
-]
+              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \
+              static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

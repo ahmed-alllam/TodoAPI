@@ -1,4 +1,5 @@
-#   Copyright (c) Code Written and Tested by Ahmed Emad in 01/03/2020, 18:38
+#   Copyright (c) Code Written and Tested by Ahmed Emad in 01/03/2020, 19:25
+#
 #
 
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
@@ -265,7 +266,7 @@ class TodoView(viewsets.ViewSet):
         serializer = TodoGroupSerializer(paginated_queryset, many=True)
 
         return Response(data={'limit': paginator.limit, 'offset': paginator.offset,
-                              'count': paginator.count, 'todos': serializer.data})
+                              'count': paginator.count, 'todo_groups': serializer.data})
 
     def retrieve(self, request, username=None, group_sort=None, pk=None):
         """Retrieves a certain todo item from the user's list
@@ -479,8 +480,8 @@ class TodoAttachmentView(viewsets.ViewSet):
             not authorized to delete that todo attachment,
             if not, returns HTTP 204 Response with no content.
         """
-        attachment = get_object_or_404(TodoAttachmentModel, category__user__account__username=username,
-                                       category__sort=group_sort, todo_item__sort=item_sort, sort=pk)
+        attachment = get_object_or_404(TodoAttachmentModel, todo_item__category__user__account__username=username,
+                                       todo_item__category__sort=group_sort, todo_item__sort=item_sort, sort=pk)
         self.check_object_permissions(request, attachment)
         attachment.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
