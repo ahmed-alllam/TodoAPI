@@ -1,4 +1,5 @@
-#   Copyright (c) Code Written and Tested by Ahmed Emad in 29/02/2020, 19:25
+#   Copyright (c) Code Written and Tested by Ahmed Emad in 01/03/2020, 18:38
+#
 #
 
 from django.contrib.auth.models import User
@@ -6,7 +7,7 @@ from django.core import exceptions
 import django.contrib.auth.password_validation as validators
 from rest_framework import serializers
 
-from core.models import UserProfileModel, TodoGroupModel, TodoModel
+from core.models import UserProfileModel, TodoGroupModel, TodoModel, TodoAttachmentModel
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -84,48 +85,11 @@ class TodoAttachmentSerializer(serializers.ModelSerializer):
     """The serializer for the todo item attachment model"""
 
     class Meta:
-        model = TodoModel
-        fields = ('sort', 'file')
-
-    def validate_sort(self, sort):
-        """validator for sort field"""
-
-        if not self.instance:
-            raise serializers.ValidationError("sort can't be specified before creation")
-        if sort > self.instance.user.todo_groups.count() or sort < 1:
-            raise serializers.ValidationError("invalid sort number")
-        return sort
-
-    def update(self, instance, validated_data):
-        """updates a todo item"""
-
-        instance.file = validated_data.get('file', instance.file)
-
-        if validated_data.get('sort', None):
-            old_sort = instance.sort
-            new_sort = validated_data.get('sort')
-
-            instance.sort = None
-            instance.save()
-
-            if new_sort - old_sort > 0:
-                attachments = instance.todo_item.attachments.filter(sort__gt=old_sort,
-                                                                    sort__lte=new_sort,
-                                                                    sort__isnull=False)
-                for attachment in attachments:
-                    attachment.sort -= 1
-                    attachment.save()
-
-            elif new_sort - old_sort < 0:
-                attachments = instance.todo_item.attachments.filter(sort__lt=old_sort,
-                                                                    sort__gte=new_sort,
-                                                                    sort__isnull=False).order_by('-sort')
-                for attachment in attachments:
-                    attachment.sort += 1
-                    attachment.save()
-
-            instance.sort = new_sort
-            instance.save()
+        model = TodoAttachmentModel
+        fields = ('file', 'sort')
+        extra_kwargs = {
+            'sort': {'read_only': True}
+        }
 
 
 class TodoItemSerializer(serializers.ModelSerializer):
