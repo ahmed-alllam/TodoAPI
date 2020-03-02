@@ -1,4 +1,5 @@
-#   Copyright (c) Code Written and Tested by Ahmed Emad in 01/03/2020, 19:25
+#   Copyright (c) Code Written and Tested by Ahmed Emad in 02/03/2020, 12:27
+#
 #
 #
 #
@@ -7,6 +8,7 @@ import os
 import uuid
 
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.db import models
 
 
@@ -71,13 +73,20 @@ class TodoModel(models.Model):
         return self.title
 
 
+def filesize(value):
+    """Model Validator for file size limit"""
+    limit = 2 * 1024 * 1024
+    if value.size > limit:
+        raise ValidationError('File too large. Size should not exceed 2 MiB.')
+
+
 class TodoAttachmentModel(models.Model):
     """an alias to filefield to enable
     having multiple file attachments in a todo items"""
 
     sort = models.PositiveIntegerField(null=True)
     todo_item = models.ForeignKey(TodoModel, on_delete=models.CASCADE, related_name='attachments')
-    file = models.FileField(upload_to=upload)
+    file = models.FileField(upload_to=upload, validators=[filesize])
 
     class Meta:
         unique_together = ("todo_item", "sort")
