@@ -1,7 +1,4 @@
-#   Copyright (c) Code Written and Tested by Ahmed Emad in 01/03/2020, 19:25
-#
-#
-#
+#   Copyright (c) Code Written and Tested by Ahmed Emad in 02/03/2020, 12:30
 
 from django.contrib.auth.models import User
 from django.core import exceptions

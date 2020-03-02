@@ -1,7 +1,4 @@
-#   Copyright (c) Code Written and Tested by Ahmed Emad in 01/03/2020, 20:06
-#
-#
-#
+#   Copyright (c) Code Written and Tested by Ahmed Emad in 02/03/2020, 12:30
 
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.shortcuts import get_object_or_404

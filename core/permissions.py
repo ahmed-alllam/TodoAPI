@@ -1,5 +1,5 @@
-#   Copyright (c) Code Written and Tested by Ahmed Emad in 01/03/2020, 20:06
-#
+#   Copyright (c) Code Written and Tested by Ahmed Emad in 02/03/2020, 12:30
+
 from rest_framework import permissions
 
 from core.models import UserProfileModel, TodoGroupModel, TodoModel
