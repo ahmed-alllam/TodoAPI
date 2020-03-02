@@ -1,21 +1,26 @@
-#   Copyright (c) Code Written and Tested by Ahmed Emad in 02/03/2020, 16:18
+#   Copyright (c) Code Written and Tested by Ahmed Emad in 02/03/2020, 16:29
 import os
 
 from django.contrib.auth.models import User
 from django.test import TestCase
 
-from core.models import upload, TodoGroupModel, TodoModel, TodoAttachmentModel, UserProfileModel
+from core.models import TodoGroupModel, TodoModel, TodoAttachmentModel, UserProfileModel, users_upload, \
+    attachment_upload
 
 
 class TestUsers(TestCase):
     """UnitTest for users models"""
 
     def test_photo_name_unique(self):
-        """test for image upload unique id generator"""
+        """test for image and file upload unique id generator"""
 
-        image_1_id = upload(None, 'image1')
-        image_2_id = upload(None, 'image2')
+        image_1_id = users_upload(None, 'image1')
+        image_2_id = users_upload(None, 'image2')
         self.assertNotEquals(image_1_id, image_2_id)
+
+        file_1_id = attachment_upload(None, 'file1')
+        file_2_id = attachment_upload(None, 'file2')
+        self.assertNotEquals(file_1_id, file_2_id)
 
     def test_user_str(self):
         """test for user __str__ unction"""

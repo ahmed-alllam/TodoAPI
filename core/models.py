@@ -1,4 +1,4 @@
-#   Copyright (c) Code Written and Tested by Ahmed Emad in 02/03/2020, 16:18
+#   Copyright (c) Code Written and Tested by Ahmed Emad in 02/03/2020, 16:29
 
 
 import os
@@ -9,8 +9,22 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 
-def upload(instance, filename):
-    """Gives a unique path to the saved file or photo in models.
+def users_upload(instance, filename):
+    """Gives a unique path to the saved user photo in models.
+    Arguments:
+        instance: the photo itself, it is not used in this
+                  function but it's required by django.
+        filename: the name of the photo sent by user, it's
+                  used here to get the format of the photo.
+    Returns:
+        The unique path that the photo will be stored in the DB.
+    """
+
+    return 'users/{0}.{1}'.format(uuid.uuid4().hex, os.path.splitext(filename))
+
+
+def attachment_upload(instance, filename):
+    """Gives a unique path to the saved attachment file in models.
     Arguments:
         instance: the file itself, it is not used in this
                   function but it's required by django.
@@ -20,14 +34,14 @@ def upload(instance, filename):
         The unique path that the file will be stored in the DB.
     """
 
-    return '{0}.{1}'.format(uuid.uuid4().hex, os.path.splitext(filename))
+    return 'attachments/{0}.{1}'.format(uuid.uuid4().hex, os.path.splitext(filename))
 
 
 class UserProfileModel(models.Model):
     """The Model of the User Profile."""
 
     account = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    profile_photo = models.ImageField(upload_to=upload, null=True)
+    profile_photo = models.ImageField(upload_to=users_upload, null=True)
 
     def __str__(self):
         return self.account.username
@@ -83,7 +97,7 @@ class TodoAttachmentModel(models.Model):
 
     sort = models.PositiveIntegerField(null=True)
     todo_item = models.ForeignKey(TodoModel, on_delete=models.CASCADE, related_name='attachments')
-    file = models.FileField(upload_to=upload, validators=[filesize])
+    file = models.FileField(upload_to=attachment_upload, validators=[filesize])
 
     class Meta:
         unique_together = ("todo_item", "sort")
