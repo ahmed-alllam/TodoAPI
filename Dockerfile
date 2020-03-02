@@ -7,8 +7,7 @@ COPY . /todoapi
 RUN apk add --update --no-cache postgresql-client
 RUN apk add --update --no-cache --virtual .tmp-build-deps \
       gcc libc-dev linux-headers postgresql-dev \
-      && apk add postgresql jpeg-dev zlib-dev libjpeg \
-      && pip3 install psycopg2 Pillow
+      && apk add postgresql jpeg-dev zlib-dev libjpeg
 RUN pip3 install -r /todoapi/requirements.txt
 RUN apk del .tmp-build-deps
 RUN adduser -D todoapi
