@@ -1,13 +1,13 @@
 version: '3'
 
 services:
-  todoAPI:
+  todoapi:
     build:
       context: .
     ports:
       - "80:8000"
     volumes:
-      - .:/todoAPI
+      - .:/todoapi
     command: >
       sh -c "python3 manage.py makemigrations &&
       python3 manage.py migrate &&
