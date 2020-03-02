@@ -1,4 +1,4 @@
-#   Copyright (c) Code Written and Tested by Ahmed Emad in 02/03/2020, 12:30
+#   Copyright (c) Code Written and Tested by Ahmed Emad in 02/03/2020, 16:18
 
 import os
 
@@ -78,7 +78,7 @@ def resort_todo_attachment(sender, **kwargs):
 
 
 @receiver(post_delete, sender=TodoAttachmentModel)
-def resort_todo_attachment(sender, **kwargs):
+def delete_todo_attachment_file(sender, **kwargs):
     """The receiver called after a todo attachment is deleted
     to delete the file it pointes to in the filesystem"""
 

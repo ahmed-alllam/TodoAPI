@@ -1,6 +1,4 @@
-#   Copyright (c) Code Written and Tested by Ahmed Emad in 02/03/2020, 12:27
-#
-#
+#   Copyright (c) Code Written and Tested by Ahmed Emad in 02/03/2020, 16:18
 
 from django.test import TestCase
 from django.urls import reverse, resolve

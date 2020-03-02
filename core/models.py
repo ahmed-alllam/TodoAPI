@@ -1,4 +1,4 @@
-#   Copyright (c) Code Written and Tested by Ahmed Emad in 02/03/2020, 12:30
+#   Copyright (c) Code Written and Tested by Ahmed Emad in 02/03/2020, 16:18
 
 
 import os
@@ -20,7 +20,7 @@ def upload(instance, filename):
         The unique path that the file will be stored in the DB.
     """
 
-    return 'users/{0}.{1}'.format(uuid.uuid4().hex, os.path.splitext(filename))
+    return '{0}.{1}'.format(uuid.uuid4().hex, os.path.splitext(filename))
 
 
 class UserProfileModel(models.Model):
