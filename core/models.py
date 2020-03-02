@@ -1,4 +1,4 @@
-#   Copyright (c) Code Written and Tested by Ahmed Emad in 02/03/2020, 16:29
+#   Copyright (c) Code Written and Tested by Ahmed Emad in 02/03/2020, 21:21
 
 
 import os
@@ -86,9 +86,9 @@ class TodoModel(models.Model):
 
 def filesize(value):
     """Model Validator for file size limit"""
-    limit = 2 * 1024 * 1024
+    limit = 2 * 1000 * 1000
     if value.size > limit:
-        raise ValidationError('File too large. Size should not exceed 2 MiB.')
+        raise ValidationError('File too large. Size should not exceed 2 MB.')
 
 
 class TodoAttachmentModel(models.Model):

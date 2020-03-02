@@ -1,4 +1,4 @@
-#   Copyright (c) Code Written and Tested by Ahmed Emad in 02/03/2020, 16:29
+#   Copyright (c) Code Written and Tested by Ahmed Emad in 02/03/2020, 21:21
 import os
 
 from django.contrib.auth.models import User
@@ -107,7 +107,8 @@ class TestTodoAttachment(TestCase):
 
     def setUp(self):
         """Setup for unittest"""
-        open("media/sample.flv", "w+")
+        with open("media/sample.flv", "w+"):
+            pass
 
     def test_todo_attachment_sort_unique(self):
         """test for todo attachment sort uniqueness"""
