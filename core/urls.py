@@ -1,4 +1,4 @@
-#   Copyright (c) Code Written and Tested by Ahmed Emad in 02/03/2020, 12:30
+#   Copyright (c) Code Written and Tested by Ahmed Emad in 03/03/2020, 21:20
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -22,7 +22,7 @@ urlpatterns = [
                   path('users/<username>/', UserProfileView.as_view({'get': 'retrieve',
                                                                      'put': 'update',
                                                                      'patch': 'partial_update',
-                                                                     'delete': 'destroy'}), name='user_details'),
+                                                                     'delete': 'destroy'}), name='user-details'),
                   path('users/<username>/todo-items/', TodoView.as_view({'get': 'list'}), name='todo-list'),
                   path('users/<username>/todo-groups/', include(todo_group_router.urls)),
                   path('users/<username>/todo-groups/<int:group_sort>/todo-items/',

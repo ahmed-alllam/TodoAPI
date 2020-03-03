@@ -1,4 +1,4 @@
-#   Copyright (c) Code Written and Tested by Ahmed Emad in 02/03/2020, 16:18
+#   Copyright (c) Code Written and Tested by Ahmed Emad in 03/03/2020, 21:20
 
 from django.test import TestCase
 from django.urls import reverse, resolve
@@ -27,7 +27,7 @@ class TestUsers(TestCase):
 
     def test_user_details(self):
         """test for user details url"""
-        url = reverse('core:user_details', kwargs={'username': 'username'})
+        url = reverse('core:user-details', kwargs={'username': 'username'})
         self.assertEqual(resolve(url).func.__name__,
                          UserProfileView.as_view({'get': 'retrieve'}).__name__)
 
