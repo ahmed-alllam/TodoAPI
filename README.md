@@ -99,7 +99,7 @@ You can freely use, edit and learn from this project.
 
 **To Update a certain todo item:**
 
-    PUT, PATCH www.todo.com/users/{username}/todo-groups/{group_sort}/{todo_sort}/
+    PUT, PATCH www.todo.com/users/{username}/todo-groups/{group_sort}/todo-items/{todo_sort}/
 
     {
         "sort": 1,
@@ -111,15 +111,15 @@ You can freely use, edit and learn from this project.
 
 **And likewise for retrieving and deleting a certain todo item:**
 
-    GET, DELETE www.todo.com/users/{username}/todo-groups/{group_sort}/{todo_sort}/
+    GET, DELETE www.todo.com/users/{username}/todo-groups/{group_sort}/todo-items/{todo_sort}/
 
 **A User might want to add an attachment in a todo item, For this you can do:**
 
-    POST www.todo.com/users/{username}/todo-groups/{group_sort}/{todo_sort}/
+    POST www.todo.com/users/{username}/todo-groups/{group_sort}/todo-items/{todo_sort}/
 
 **And if the user wants to delete the attachment, he can use:**
     
-    DELETE www.todo.com/users/{username}/todo-groups/{group_sort}/{todo_sort}/{attachment_sort}/
+    DELETE www.todo.com/users/{username}/todo-groups/{group_sort}/todo-items/{todo_sort}/attachments/{attachment_sort}/
 
 * note: 
     1. the uploaded file can be of any format, the file can't be any larger than 2 MB.
